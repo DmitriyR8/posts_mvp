@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\API\V1\PostController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,4 +17,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
+});
+
+Route::prefix('v1')->group(function () {
+    Route::prefix('posts')->group(function () {
+
+        Route::get('/', [PostController::class, 'getPosts']);
+        Route::get('/{id}', [PostController::class, 'getPostById']);
+    });
 });
